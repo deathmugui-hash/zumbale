@@ -23,7 +23,7 @@ jobs:
         run: sudo apt-get install unzip
 
       - name: Unzip project
-        run: unzip Zumbale.zip
+        run: unzip zumbale.zip
 
       - name: Install dependencies
         run: npm install
