@@ -7,30 +7,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install unzip
+        run: sudo apt-get install unzip
 
       - name: Unzip project
         run: unzip Zumbale.zip
 
-      - name: Install Capacitor Android
+      - name: Install dependencies
         run: |
           cd Zumbale
           npm install
+
+      - name: Install Capacitor Android
+        run: |
+          cd Zumbale
+          npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap add android
-          npx cap sync android
+          npx cap sync
 
       - name: Build APK
         run: |
