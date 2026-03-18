@@ -20,15 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Prepare web assets
-        run: |
-          mkdir -p www
-          cp index.html www/
-          cp -r js www/ || true
-          cp -r css www/ || true
-          cp -r assets www/ || true
-
-      - name: Install Capacitor Android
+            - name: Install Capacitor Android
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
           node node_modules/@capacitor/cli/bin/capacitor sync
