@@ -1,4 +1,4 @@
-name: Build APK
+name: build APK
 on: push: branches: - main
 jobs: build: runs-on: ubuntu-latest
 steps:
