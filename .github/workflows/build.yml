@@ -22,7 +22,7 @@ jobs:
 
       - name: Prepare web assets
         run: |
-          mkdir www
+          mkdir -p www
           cp index.html www/
           cp -r js www/ || true
           cp -r css www/ || true
