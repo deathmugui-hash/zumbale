@@ -13,5 +13,11 @@ steps:
         uses: actions/setup-node@v4
         with:
            nodde-version: 18
+- name: Create www
+        run: |
+          npm install
+          npm install @capacitor/core
+@capacitor/cli @capacitor/android
+
            
      
