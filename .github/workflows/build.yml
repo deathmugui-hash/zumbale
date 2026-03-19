@@ -14,9 +14,10 @@ jobs:
         with:
           node-version: 18
       - name: Install Capcitor
-        run: |
+              run: |
                 npm install
-                npm install @capacitor/core @capacitor/cli @capacitor/android
+                npm install @capacitor/core 
+              @capacitor/cli @capacitor/android
       - name: Create www
               run: |
                 mkdir -p www
@@ -36,3 +37,5 @@ jobs:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
  
+
+
