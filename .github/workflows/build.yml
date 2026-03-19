@@ -13,11 +13,23 @@ steps:
         uses: actions/setup-node@v4
         with:
            nodde-version: 18
-- name: Create www
+- name: Install Capcitor
         run: |
           npm install
           npm install @capacitor/core
 @capacitor/cli @capacitor/android
+- name: Create www
+        run: |
+          mkdir -p www
+          cp index.html www/
+          cp *.js www/ || true
+          cp *.png www/ || true
+          cp *.json www/ || true
+          cp *.mp3 www/ || true
+ 
+
+
+
 
            
      
