@@ -11,26 +11,26 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
-with:
-  node-version: 18
+        with:
+          node-version: 18
       - name: Install Capcitor
         run: |
-          npm install
-          npm install @capacitor/core @capacitor/cli @capacitor/android- name: Create www
-    run: |
-          mkdir -p www
-          cp index.html www/
-          cp *.js www/ || true
-          cp *.png www/ || true
-          cp *.json www/ || true
-          cp *.mp3 www/ || true
-- name: Init  Capacitor
+                npm install
+                npm install @capacitor/core @capacitor/cli @capacitor/android
+      - name: Create www
+              run: |
+                mkdir -p www
+                cp index.html www/
+                cp *.js www/ || true
+                cp *.png www/ || true
+                cp *.json www/ || true
+                cp *.mp3 www/ || true
+       - name: Init  Capacitor
         run: |
-          npx cap init zumbale
-com.zumbale.app --web-dir-www || true
-      - name: Copy
+          npx cap init zumbale com.zumbale.app --web-dir-www || true
+       - name: Copy
         run: npx cap copy
-      - name: Upload APK
+       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
