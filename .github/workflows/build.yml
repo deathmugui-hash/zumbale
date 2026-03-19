@@ -29,28 +29,20 @@ jobs:
           npm install
           npm install @capacitor/core @capacitor/cli @capacitor/android
 
-      - name: Create www
+      - name: Ensure Capacitor config
         run: |
-          mkdir -p www
-          cp index.html www/ || true
-          cp *.js www/ || true
-          cp *.png www/ || true
-          cp *.json www/ || true
-          cp *.mp3 www/ || true
-
-      - name: Init Capacitor
-        run: |
-          npx cap init zumbale com.zumbale.app --web-dir www || true
+          npx cap init zumbale com.zumbale.app --web-dir . || true
 
       - name: Add Android platform
-        run: npx cap add android
+        run: npx cap add android || true
 
-      - name: Copy files
+      - name: Copy files to Android
         run: npx cap copy
 
       - name: Build APK
         run: |
           cd android
+          chmod +x gradlew
           ./gradlew assembleDebug
 
       - name: Upload APK
