@@ -26,6 +26,11 @@ steps:
           cp *.png www/ || true
           cp *.json www/ || true
           cp *.mp3 www/ || true
+- name: Init  Capacitor
+        run: |
+          npx cap init zumbale
+com.zumbale.app --web-dir-www || true
+
  
 
 
