@@ -1,25 +1,23 @@
 name: Build APK
 on: 
- push:
-   branches:
-     - main
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
-steps:
-     - name: Checkout
-       uses: actions/checkout@v4
-- name: Setup Node
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
         uses: actions/setup-node@v4
-        with:
-           nodde-version: 18
-- name: Install Capcitor
+with:
+  node-version: 18
+      - name: Install Capcitor
         run: |
           npm install
-          npm install @capacitor/core
-@capacitor/cli @capacitor/android
-- name: Create www
-        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android- name: Create www
+    run: |
           mkdir -p www
           cp index.html www/
           cp *.js www/ || true
@@ -30,10 +28,11 @@ steps:
         run: |
           npx cap init zumbale
 com.zumbale.app --web-dir-www || true
-- name: Copy
+      - name: Copy
         run: npx cap copy
-- name: Upload APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
+ 
