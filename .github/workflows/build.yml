@@ -1,5 +1,4 @@
 name: Build APK
-
 on:
 push:
 branches:
@@ -8,22 +7,21 @@ branches:
 jobs:
 build:
 runs-on: ubuntu-latest
-
 steps:
-  - name: Checkout código
-    uses: actions/checkout@v4
+- name: Checkout
+uses: actions/checkout@v4
 
-  - name: Usar Node.js
+  - name: Setup Node
     uses: actions/setup-node@v4
     with:
       node-version: 18
 
-  - name: Instalar Capacitor
+  - name: Install Capacitor
     run: |
       npm install
       npm install @capacitor/core @capacitor/cli @capacitor/android
 
-  - name: Crear carpeta www
+  - name: Create www
     run: |
       mkdir -p www
       cp index.html www/
@@ -32,17 +30,16 @@ steps:
       cp *.json www/ || true
       cp *.mp3 www/ || true
 
-  - name: Inicializar Capacitor
+  - name: Init Capacitor
     run: |
       npx cap init Zumbale com.zumbale.app --web-dir=www || true
 
-  - name: Agregar Android
+  - name: Add Android
     run: |
       npx cap add android || true
 
-  - name: Copiar archivos web
-    run: |
-      npx cap copy
+  - name: Copy
+    run: npx cap copy
 
   - name: Build APK
     run: |
@@ -50,7 +47,7 @@ steps:
       chmod +x gradlew
       ./gradlew assembleDebug
 
-  - name: Subir APK
+  - name: Upload APK
     uses: actions/upload-artifact@v4
     with:
       name: app-debug
