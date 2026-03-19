@@ -1,41 +1,60 @@
 name: Build APK
-on: 
+
+on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Install Capcitor
-              run: |
-                npm install
-                npm install @capacitor/core 
-              @capacitor/cli @capacitor/android
-      - name: Create www
-              run: |
-                mkdir -p www
-                cp index.html www/
-                cp *.js www/ || true
-                cp *.png www/ || true
-                cp *.json www/ || true
-                cp *.mp3 www/ || true
-       - name: Init  Capacitor
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies
         run: |
-          npx cap init zumbale com.zumbale.app --web-dir-www || true
-       - name: Copy
+          npm install
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      - name: Create www
+        run: |
+          mkdir -p www
+          cp index.html www/ || true
+          cp *.js www/ || true
+          cp *.png www/ || true
+          cp *.json www/ || true
+          cp *.mp3 www/ || true
+
+      - name: Init Capacitor
+        run: |
+          npx cap init zumbale com.zumbale.app --web-dir www || true
+
+      - name: Add Android platform
+        run: npx cap add android
+
+      - name: Copy files
         run: npx cap copy
-       - name: Upload APK
+
+      - name: Build APK
+        run: |
+          cd android
+          ./gradlew assembleDebug
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
- 
-
-
