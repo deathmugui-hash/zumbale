@@ -30,6 +30,9 @@ steps:
         run: |
           npx cap init zumbale
 com.zumbale.app --web-dir-www || true
+- name: Copy
+        run: npx cap copy
+
 
  
 
