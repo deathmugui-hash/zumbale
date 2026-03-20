@@ -16,27 +16,30 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 18
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Install dependencies
+      - name: Install Capacitor
         run: |
           npm install
           npm install @capacitor/core @capacitor/cli @capacitor/android
 
-      - name: Ensure Capacitor config
+      - name: Create www
         run: |
-          npx cap init zumbale com.zumbale.app --web-dir . || true
+          mkdir -p www
+          cp index.html www/
+          cp *.js www/ || true
+          cp *.png www/ || true
+          cp *.json www/ || true
+          cp *.mp3 www/ || true
 
-      - name: Add Android platform
+      - name: Init Capacitor
+        run: |
+          npx cap init zumbale com.zumbale.app --web-dir=www || true
+
+      - name: Add Android
         run: npx cap add android || true
 
-      - name: Copy files to Android
+      - name: Copy
         run: npx cap copy
 
       - name: Build APK
